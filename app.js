@@ -4,69 +4,59 @@ const mongoose = require('mongoose')
 const path = require('path')
 
 
+// const Nexmo = require('nexmo');
 
+// const nexmo = new Nexmo({
+//   apiKey: 'acdc2242',
+//   apiSecret: '*********',
+// });
+
+// mongoose.connect('mongodb+srv://pops:pops@cluster0-4zlpj.mongodb.net/otp?retryWrites=true&w=majority', {useUnifiedTopology: true,useNewUrlParser: true,})
+//   .then(() => console.log('Connected to MongoDB...')) 
+//   .catch(err => console.error(`Could not connect to MongoDB...${err}`));
+
+//   const User = mongoose.model('basic_otp',mongoose.Schema({
+    
+//     mobile:{
+//         type:Number,
+//          },
+//     mobile_otp :{
+//       type:Number
+//     }    
+  
+//   }),'basic_otp')
 
 
 app.use(express.json());
 
-// View Engine Setup
-app.set('views',path.join(__dirname,'views'))
-app.set('view engine', 'ejs'); 
 
-mongoose.connect('mongodb+srv://pops:pops@cluster0-4zlpj.mongodb.net/meetup?retryWrites=true&w=majority', {useUnifiedTopology: true,useNewUrlParser: true,})
-  .then(() => console.log('Connected to MongoDB...')) 
-  .catch(err => console.error(`Could not connect to MongoDB...${err}`));
 
-  const User = mongoose.model('user',mongoose.Schema({
-    
-    email:{
-        type:String,
-    },
-    name:{
-      type:String
-    },
-    link:{
-     type:String
-    },
-    status:{
-      type:Boolean,
-      default:false
-    }
+// app.get('/:id', function(req,res){
   
-  }),'user')
- app.get('/status',async function(req,res){
-   const seen = await User.find({status:true});
-   //res.send({Confirmed:seen.length});
-//   res.send(`<html><h1 align='center'>Confirmed : ${seen.length}</h1> </html>`)
-   res.render('confirm',{seen})
- })
+//   const mobile = req.params.id;
+//   if(mobile.length!=10)return res.status(400).send(`${mobile} Enter Valid Mobile No`);
+//   var smsOTP = Math.floor((Math.random() * (8765 - 2345) + 2345));
 
-  app.get('/:id',async function(req,res){
-    try{
-    const _id = req.params.id;
-    
-     User.findByIdAndUpdate({_id:_id},{$set:{status:true}},function(err,result){
+//   const from = 'Hackathon Project';
+//   const to = '91'+mobile;
+//   const text = `Your OTP code for  verification is ${smsOTP}  \n\n\n\n \n.`;
+  
+//   nexmo.message.sendSms(from, to, text,function(err,smsResult){
+//       if(err) return res.status(400).send(err);
+//       console.log(smsResult);
+//       User.updateOne({mobile:mobile},{$set:{mobile_otp:smsOTP}},function(errr,doc){
+//         if(err) return res.status(400).send(errr);
+//         res.status(200).send(doc);
+//       })
 
-    if(err)return res.status(400).send("Invalid User...")
-    if(!result){res.status(400).send("Invalid User...");}
-    else{
-      const data={
-         msg:"'HTML PAGE'",
-         //obj:user 
-      }
-    //  res.send(data)
-    res.render('test',{name:result.name})
-//    res.sendFile('test.html', {root: __dirname })
-    }  
-     });
-    }
-    catch(e){res.send("some error occured");}
+//   });
+  
 
-});
-app.get('/', function(req,res){
-  res.send("Error 404 Page not found")
+// })
+
+app.get('/',function(req,res){
+  res.send('404 page not found');
 })
-
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
 
