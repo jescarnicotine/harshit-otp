@@ -55,8 +55,12 @@ app.use(express.json());
 // })
 
 app.get('/',function(req,res){
-  res.send('404 page not found');
+  res.send({'msg':'404 page not found'});
 })
+app.post('/',async function(req,res){
+  res.send(req.body);
+})
+    
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
 
