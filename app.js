@@ -55,7 +55,7 @@ app.use(express.json());
 // })
 
 app.get('/',function(req,res){
-  res.send({'count':3});
+  res.send({'count':0});
 })
 app.post('/',async function(req,res){
   res.send(req.body);
