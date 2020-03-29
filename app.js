@@ -55,7 +55,7 @@ app.use(express.json());
 // })
 
 app.get('/',function(req,res){
-  res.send({'msg':'404 page not found'});
+  res.send({'count':3});
 })
 app.post('/',async function(req,res){
   res.send(req.body);
